@@ -3,8 +3,13 @@ require('./bootstrap');
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
+import axios from 'axios'
+import { Model } from 'vue-api-query'
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+// inject global axios instance as http client to Model
+Model.$http = axios
+
+const appName = window.document.getElementsByTagName('title')[0]?.innerText||'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
