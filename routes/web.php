@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontEndController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -23,7 +24,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -37,3 +38,10 @@ Route::middleware([
 
 
 Route::get('filter', [FrontEndController::class, 'filter'])->name('filter');
+Route::get('newfilter', [FrontEndController::class, 'newfilter'])->name('newfilter');
+Route::get('category', [FrontEndController::class, 'category'])->name('category');
+Route::get('dependent-dropdown', [FrontEndController::class, 'dependentFirst'])->name('dependentFirst');
+
+Route::get('get-second/{first}', [FrontEndController::class, 'getSecondFromFirst'])->name('getSecondFromFirst');
+Route::get('get-third/{second}', [FrontEndController::class, 'getThirdFromSecond'])->name('getThirdFromSecond');
+Route::get('get-fourth/{third}', [FrontEndController::class, 'getFourthFromThird'])->name('getFourthFromThird');
