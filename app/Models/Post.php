@@ -34,4 +34,18 @@ class Post extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeWithFilters($query)
+    {
+
+        return $query->when(count(request()->input('userChecked', [])), function ($query) {
+            $query->whereIn('user_id', request()->input('userChecked'));
+        })
+            ->when(count(request()->input('categoryChecked', [])), function ($query) {
+                $query->whereIn('category_id', request()->input('categoryChecked'));
+            })
+            ->when(count(request()->input('tagChecked', [])), function ($query) {
+                $query->whereIn('tag_id', request()->input('tagChecked'));
+            });
+    }
 }
